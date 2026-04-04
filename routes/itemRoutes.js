@@ -34,6 +34,9 @@ router.get('/', itemController.getAllItems);
  */
 router.get('/:id', itemController.getSingleItem);
 
+// POST: Create a new item
+router.post('/', itemController.createItem);
+
 
 router.delete('/:id', itemController.deleteItem);
 

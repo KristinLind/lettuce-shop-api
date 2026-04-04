@@ -21,6 +21,21 @@ const getSingleList = async (req, res) => {
   }
 };
 
+const createNewList = async (req, res) => {
+  try {
+    const newList = new List({
+      name: req.body.name,
+      user: req.body.user,
+      notes: req.body.notes
+    });
+
+    const savedList = await newList.save();
+    res.status(201).json(savedList);
+  } catch (err) {
+    res.status(400).json({ message: "Error creating list", error: err.message });
+  }
+};
+
 const getListsByUser = async (req, res) => {
   try {
     const userLists = await List.find({ user: req.params.userId });
@@ -50,4 +65,4 @@ const deleteList = async(req, res, next) => {
     }
 };
 
-module.exports = { getAllLists, getSingleList, getListsByUser, deleteList };
+module.exports = { getAllLists, getSingleList, getListsByUser, deleteList, createNewList };

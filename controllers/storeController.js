@@ -19,6 +19,22 @@ const getSingleStore = async (req, res) => {
   }
 };
 
+const createNewStore = async (req, res) => {
+  try {
+    const newStore = new Store({
+      name: req.body.name,
+      address: req.body.address,
+      category: req.body.category,
+      notes: req.body.notes
+    });
+
+    const savedStore = await newStore.save();
+    res.status(201).json(savedStore);
+  } catch (err) {
+    res.status(400).json({ message: "Error creating store", error: err.message });
+  }
+};
+
 const deleteStore = async(req, res, next) => {
     //#swagger.tags =['stores']
     try {
@@ -36,4 +52,4 @@ const deleteStore = async(req, res, next) => {
     }
 };
 
-module.exports = { getAllStores, getSingleStore, deleteStore };
+module.exports = { getAllStores, getSingleStore, deleteStore, createNewStore };

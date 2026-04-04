@@ -33,7 +33,8 @@ router.get('/', userController.getAllUsers);
  *         description: User not found
  */
 router.get('/:id', userController.getSingleUser);
-
+// POST: Create a new user
+router.post('/', userController.createNewUser);
 
 router.delete('/:id', userController.deleteUser);
 

@@ -33,7 +33,8 @@ router.get('/', storeController.getAllStores);
  *         description: Store not found
  */
 router.get('/:id', storeController.getSingleStore);
-
+// POST: Create a new store
+router.post('/', storeController.createNewStore);
 
 router.delete>('/:id', storeController.deleteStore);
 

@@ -19,6 +19,26 @@ const getSingleItem = async (req, res) => {
   }
 };
 
+const createItem = async (req, res) => {
+  try {
+    const newItem = new Item({
+      name: req.body.name,
+      price: req.body.price,
+      quantity: req.body.quantity,
+      category: req.body.category,
+      store: req.body.store,
+      list: req.body.list,
+      notes: req.body.notes
+    });
+
+    const savedItem = await newItem.save();
+    res.status(201).json(savedItem);
+  } catch (err) {
+    res.status(400).json({ message: "Error creating item", error: err.message });
+  }
+};
+
+
 const deleteItem = async(req, res, next) => {
     //#swagger.tags =['items']
     try {
@@ -36,4 +56,4 @@ const deleteItem = async(req, res, next) => {
     }
 };
 
-module.exports = { getAllItems, getSingleItem, deleteItem };
+module.exports = { getAllItems, getSingleItem, deleteItem, createItem };
