@@ -35,7 +35,7 @@ const createStore =async (req, res) => {
     });
     const savedStore = await newStore.save();
 
-    res.stauts(201). json(savedStore);
+    res.status(201). json(savedStore);
   } catch (err) {
     res.status(500).json({message: 'Error creating store', error: err.message});
   }

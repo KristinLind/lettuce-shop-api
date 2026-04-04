@@ -44,7 +44,7 @@ const createList =async (req, res) => {
     const newList = new List(req.body);
     const savedList = await newList.save();
 
-    res.stauts(201). json(savedList);
+    res.status(201). json(savedList);
   } catch (err) {
     res.status(500).json({message: 'Error creating list', error: err.message});
   }

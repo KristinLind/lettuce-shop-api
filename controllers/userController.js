@@ -36,7 +36,7 @@ const createUser =async (req, res) => {
   });
     const savedUser = await newUser.save();
 
-    res.stauts(201). json(savedUser);
+    res.status(201). json(savedUser);
   } catch (err) {
     res.status(500).json({message: 'Error creating user', error: err.message});
   }

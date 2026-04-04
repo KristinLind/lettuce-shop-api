@@ -32,7 +32,7 @@ const createItem =async (req, res) => {
     const newItem = new Item(req.body);
     const savedItem = await newItem.save();
 
-    res.stauts(201). json(savedItem);
+    res.status(201). json(savedItem);
   } catch (err) {
     res.status(500).json({message: 'Error creating item', error: err.message});
   }
