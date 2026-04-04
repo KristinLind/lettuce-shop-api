@@ -21,24 +21,22 @@ const getSingleItem = async (req, res) => {
   }
 };
 
-//create Item
-const createItem =async (req, res) => {
+// Create item
+const createItem = async (req, res) => {
   try {
-    const {name, price, quantity } = req.body;
+    const { name, price, quantity, category, store, list, notes } = req.body;
     if (!name) {
-      return res.status(400).json({message: 'Name is required'});
+      return res.status(400).json({ message: 'Name is required' });
     }
-
-    const newItem = new Item(req.body);
+    const newItem = new Item({ name, price, quantity, category, store, list, notes });
     const savedItem = await newItem.save();
-
-    res.status(201). json(savedItem);
+    res.status(201).json(savedItem);
   } catch (err) {
-    res.status(500).json({message: 'Error creating item', error: err.message});
+    res.status(400).json({ message: 'Error creating item', error: err.message });
   }
 };
 
-//Update Item
+// Update item
 const updateItem = async (req, res) => {
   try {
     const updatedItem = await Item.findByIdAndUpdate(
@@ -46,35 +44,28 @@ const updateItem = async (req, res) => {
       req.body,
       { new: true, runValidators: true }
     );
-    if(!updatedItem) {
-      return res.status(404).json({ message: 'Item not found'});
+    if (!updatedItem) {
+      return res.status(404).json({ message: 'Item not found' });
     }
     res.status(200).json(updatedItem);
   } catch (err) {
-    res.status(400).json({ message: 'Error updating item', error: err.message});
+    res.status(400).json({ message: 'Error updating item', error: err.message });
   }
 };
 
-const deleteItem = async(req, res, next) => {
-    try {
-        const deletedItem = await Item.findByIdAndDelete(req.params.id);
-
-        if (!deletedItem) {
-            res.status(404);
-            throw new Error('Item not found' );
-        }
-
-        res.status(200).json({ message: 'Item deleted' });
-    } catch (err) {
-        res.status(500);
-        next(err);
+// Delete item
+const deleteItem = async (req, res) => {
+  try {
+    const deletedItem = await Item.findByIdAndDelete(req.params.id);
+    if (!deletedItem) {
+      return res.status(404).json({ message: 'Item not found' });
     }
+    res.status(200).json({ message: 'Item deleted' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error deleting item', error: err.message });
+  }
 };
 
-module.exports = { 
-  getAllItems, 
-  getSingleItem, 
-  createItem, 
-  updateItem, 
-  deleteItem 
-};
+module.exports = { getAllItems, getSingleItem, createItem, updateItem, deleteItem };
+
+

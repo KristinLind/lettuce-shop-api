@@ -5,9 +5,7 @@ const getAllLists = async (req, res) => {
     const lists = await List.find();
     res.status(200).json(lists);
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error retrieving lists", error: err.message });
+    res.status(500).json({ message: "Error retrieving lists", error: err.message });
   }
 };
 
@@ -33,24 +31,21 @@ const getListsByUser = async (req, res) => {
   }
 };
 
-//create list
-const createList =async (req, res) => {
+// Create list (merged: explicit fields + name validation)
+const createList = async (req, res) => {
   try {
-    const {name} = req.body;
+    const { name, user, notes } = req.body;
     if (!name) {
-      return res.status(400).json({message: 'List name is required'});
+      return res.status(400).json({ message: 'List name is required' });
     }
-
-    const newList = new List(req.body);
+    const newList = new List({ name, user, notes });
     const savedList = await newList.save();
-
-    res.status(201). json(savedList);
+    res.status(201).json(savedList);
   } catch (err) {
-    res.status(500).json({message: 'Error creating list', error: err.message});
+    res.status(400).json({ message: 'Error creating list', error: err.message });
   }
 };
 
-//Update List
 const updateList = async (req, res) => {
   try {
     const updatedList = await List.findByIdAndUpdate(
@@ -58,36 +53,28 @@ const updateList = async (req, res) => {
       req.body,
       { new: true, runValidators: true }
     );
-    if(!updatedList) {
-      return res.status(404).json({ message: 'List not found'});
+    if (!updatedList) {
+      return res.status(404).json({ message: 'List not found' });
     }
-    res.status(200).json(updatedItem);
+    res.status(200).json(updatedList);
   } catch (err) {
-    res.status(400).json({ message: 'Error updating list', error: err.message});
+    res.status(400).json({ message: 'Error updating list', error: err.message });
   }
 };
 
-//delete list
-const deleteList = async(req, res, next) => {
-    try {
-        const deletedlist = await List.findByIdAndDelete(req.params.id);
-
-        if (!deletedlist) {
-            res.status(404);
-            throw new Error('List not found' );
-        }
-
-        res.status(200).json({ message: 'List deleted' });
-    } catch (err) {
-        res.status(500);
-        next(err);
+const deleteList = async (req, res, next) => {
+  try {
+    const deletedList = await List.findByIdAndDelete(req.params.id);
+    if (!deletedList) {
+      res.status(404);
+      throw new Error('List not found');
     }
+    res.status(200).json({ message: 'List deleted' });
+  } catch (err) {
+    res.status(500);
+    next(err);
+  }
 };
 
-module.exports = { 
-  getAllLists, 
-  getSingleList, 
-  getListsByUser, 
-  createList,
-  updateList,
-  deleteList };
+// Fixed: exports Lists
+module.exports = { getAllLists, getSingleList, getListsByUser, createList, updateList, deleteList };

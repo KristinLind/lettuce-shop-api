@@ -19,29 +19,21 @@ const getSingleStore = async (req, res) => {
   }
 };
 
-//create store
-const createStore =async (req, res) => {
+// Create store (merged: explicit fields + name validation)
+const createStore = async (req, res) => {
   try {
-    const {name, address, category } = req.body;
+    const { name, address, category, notes } = req.body;
     if (!name) {
-      return res.status(400).json({message: 'Store name is required'});
+      return res.status(400).json({ message: 'Store name is required' });
     }
-
-    const newStore = new Store({
-      name,
-      address,
-      category,
-      notes: req.body.notes
-    });
+    const newStore = new Store({ name, address, category, notes });
     const savedStore = await newStore.save();
-
-    res.status(201). json(savedStore);
+    res.status(201).json(savedStore);
   } catch (err) {
-    res.status(500).json({message: 'Error creating store', error: err.message});
+    res.status(400).json({ message: 'Error creating store', error: err.message });
   }
 };
 
-//Update Item
 const updateStore = async (req, res) => {
   try {
     const updatedStore = await Store.findByIdAndUpdate(
@@ -49,36 +41,28 @@ const updateStore = async (req, res) => {
       req.body,
       { new: true, runValidators: true }
     );
-    if(!updatedStore) {
-      return res.status(404).json({ message: 'Store not found'});
+    if (!updatedStore) {
+      return res.status(404).json({ message: 'Store not found' });
     }
-    res.status(200).json(updatedItem);
+    res.status(200).json(updatedStore); // Fixed from updatedItem
   } catch (err) {
-    res.status(400).json({ message: 'Error updating Store', error: err.message});
+    res.status(400).json({ message: 'Error updating store', error: err.message });
   }
 };
 
-//delete store
-const deleteStore = async(req, res, next) => {
-    try {
-        const deletedStore = await Store.findByIdAndDelete(req.params.id);
-
-        if (!deletedStore) {
-            res.status(404);
-            throw new Error('Store not found' );
-        }
-
-        res.status(200).json({ message: 'Store deleted' });
-    } catch (err) {
-        res.status(500);
-        next(err);
+const deleteStore = async (req, res, next) => {
+  try {
+    const deletedStore = await Store.findByIdAndDelete(req.params.id);
+    if (!deletedStore) {
+      res.status(404);
+      throw new Error('Store not found');
     }
+    res.status(200).json({ message: 'Store deleted' });
+  } catch (err) {
+    res.status(500);
+    next(err);
+  }
 };
 
-module.exports = { 
-  getAllStores, 
-  getSingleStore, 
-  createStore,
-  updateStore,
-  deleteStore 
-};
+// Fixed: includes all functions.
+module.exports = { getAllStores, getSingleStore, createStore, updateStore, deleteStore };

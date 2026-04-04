@@ -62,13 +62,13 @@ router.get('/:id', storeController.getSingleStore);
  *       201:
  *         description: Store created
  */
-router.post('/', storeController.createStore);
+router.post('/', storeController.createStore); // ✅ matches our resolved controller
 
 /**
  * @swagger
  * /Stores/{id}:
  *   put:
- *     summary: Update an store
+ *     summary: Update a store
  *     tags: [Stores]
  *     parameters:
  *       - in: path
@@ -78,9 +78,9 @@ router.post('/', storeController.createStore);
  *           type: string
  *     responses:
  *       200:
- *         description: store updated
+ *         description: Store updated
  *       404:
- *         description: store not found
+ *         description: Store not found
  */
 router.put('/:id', storeController.updateStore);
 

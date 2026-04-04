@@ -71,6 +71,8 @@ router.get('/:id', listController.getSingleList);
  *         description: User not found
  */
 router.get('/user/:userId', listController.getListsByUser);
+// POST: Create a new list
+router.post('/', listController.createNewList);
 
 /**
  * @swagger

@@ -40,7 +40,7 @@ router.get('/', userController.getAllUsers);
  *                  schema:
  *                      type: array
  *                      items:
- *                      $ref: '#/components/schemas/User' 
+ *                      $ref: '#/components/schemas/User'
  *       404:
  *         description: User not found
  */
@@ -62,13 +62,13 @@ router.get('/:id', userController.getSingleUser);
  *       201:
  *         description: User created
  */
-router.post('/', userController.createUser);
+router.post('/', userController.createUser); // ✅ matches our resolved controller
 
 /**
  * @swagger
  * /Users/{id}:
  *   put:
- *     summary: Update an User
+ *     summary: Update a user
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -82,7 +82,7 @@ router.post('/', userController.createUser);
  *       404:
  *         description: User not found
  */
-router.post('/:id', userController.updateUser);
+router.put('/:id', userController.updateUser); // ✅ fixed from router.post
 
 /**
  * @swagger
