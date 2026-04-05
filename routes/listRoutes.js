@@ -72,7 +72,7 @@ router.get('/:id', listController.getSingleList);
  */
 router.get('/user/:userId', listController.getListsByUser);
 // POST: Create a new list
-router.post('/', listController.createNewList);
+router.post('/', listController.createList);
 
 /**
  * @swagger
