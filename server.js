@@ -1,11 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-
 const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require('./config/passport');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
-const passport = require('passport');
 const schemas = require('./docs/swaggerSchemas');
 
 // Route imports
@@ -19,7 +19,13 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'secret',
+  resave: false,
+  saveUninitialized: false
+}));
 app.use(passport.initialize());
+app.use(passport.session());
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI)
@@ -50,12 +56,36 @@ app.get('/', (req, res) => {
   res.send('Lettuce Shop API is running');
 });
 
-// Routes
+// OAuth routes
+app.get('/auth/github',
+  passport.authenticate('github', { scope: ['user:email'], session: true })
+);
+
+app.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/' }),
+  (req, res) => {
+    res.redirect('/api-docs');
+  }
+);
+
+app.get('/profile', (req, res) => {
+  res.json(req.user || 'Not logged in');
+});
+
+app.get('/logout', (req, res) => {
+  req.logout(() => {
+    res.redirect('/');
+  });
+});
+
+// Collection routes
 app.use('/items', itemRoutes);
 app.use('/lists', listRoutes);
 app.use('/stores', storeRoutes);
 app.use('/users', userRoutes);
 
 // Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));module.exports = app;
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app;
