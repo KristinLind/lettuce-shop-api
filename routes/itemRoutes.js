@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const itemController = require("../controllers/itemController");
 const { itemValidationRules, validate } = require("../middleware/validate");
-const { ensureAuthenticated  = require("../middleware/auth");
+const { ensureAuthenticated } = require("../middleware/auth");
 
 /**
  * @swagger
