@@ -7,7 +7,7 @@ const userController = require('../controllers/userController');
  * /users:
  *   get:
  *     summary: Get all users
- *     tags: [Users]
+ *     tags: [users]
  *     responses:
  *       200:
  *         description: List of all users
@@ -16,7 +16,7 @@ const userController = require('../controllers/userController');
  *                  schema:
  *                      type: array
  *                      items:
- *                      $ref: '#/components/schemas/User'
+ *                          $ref: '#/components/schemas/user'
  */
 router.get('/', userController.getAllUsers);
 
@@ -25,7 +25,7 @@ router.get('/', userController.getAllUsers);
  * /users/{id}:
  *   get:
  *     summary: Get a single user by ID
- *     tags: [Users]
+ *     tags: [users]
  *     parameters:
  *       - in: path
  *         name: id
@@ -40,7 +40,7 @@ router.get('/', userController.getAllUsers);
  *                  schema:
  *                      type: array
  *                      items:
- *                      $ref: '#/components/schemas/User'
+ *                          $ref: '#/components/schemas/user'
  *       404:
  *         description: User not found
  */
@@ -48,16 +48,16 @@ router.get('/:id', userController.getSingleUser);
 
 /**
  * @swagger
- * /Users:
+ * /users:
  *   post:
  *     summary: Create a new User
- *     tags: [Users]
+ *     tags: [users]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/User'
+ *             $ref: '#/components/schemas/user'
  *     responses:
  *       201:
  *         description: User created
@@ -66,10 +66,10 @@ router.post('/', userController.createUser); // ✅ matches our resolved control
 
 /**
  * @swagger
- * /Users/{id}:
+ * /users/{id}:
  *   put:
  *     summary: Update a user
- *     tags: [Users]
+ *     tags: [users]
  *     parameters:
  *       - in: path
  *         name: id
@@ -86,10 +86,10 @@ router.put('/:id', userController.updateUser); // ✅ fixed from router.post
 
 /**
  * @swagger
- * /Users/{id}:
+ * /users/{id}:
  *   delete:
  *     summary: Delete a user
- *     tags: [Users]
+ *     tags: [users]
  *     parameters:
  *       - in: path
  *         name: id

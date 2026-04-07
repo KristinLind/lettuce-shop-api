@@ -7,7 +7,7 @@ const storeController = require('../controllers/storeController');
  * /stores:
  *   get:
  *     summary: Get all stores
- *     tags: [Stores]
+ *     tags: [stores]
  *     responses:
  *       200:
  *         description: List of all stores
@@ -16,7 +16,7 @@ const storeController = require('../controllers/storeController');
  *                  schema:
  *                      type: array
  *                      items:
- *                      $ref: '#/components/schemas/Store'
+ *                          $ref: '#/components/schemas/store'
  */
 router.get('/', storeController.getAllStores);
 
@@ -25,7 +25,7 @@ router.get('/', storeController.getAllStores);
  * /stores/{id}:
  *   get:
  *     summary: Get a single store by ID
- *     tags: [Stores]
+ *     tags: [stores]
  *     parameters:
  *       - in: path
  *         name: id
@@ -40,7 +40,7 @@ router.get('/', storeController.getAllStores);
  *                  schema:
  *                      type: array
  *                      items:
- *                      $ref: '#/components/schemas/Store'
+ *                          $ref: '#/components/schemas/store'
  *       404:
  *         description: Store not found
  */
@@ -48,16 +48,16 @@ router.get('/:id', storeController.getSingleStore);
 
 /**
  * @swagger
- * /Stores:
+ * /stores:
  *   post:
  *     summary: Create a new Store
- *     tags: [Stores]
+ *     tags: [stores]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Store'
+ *             $ref: '#/components/schemas/store'
  *     responses:
  *       201:
  *         description: Store created
@@ -66,10 +66,10 @@ router.post('/', storeController.createStore); // ✅ matches our resolved contr
 
 /**
  * @swagger
- * /Stores/{id}:
+ * /stores/{id}:
  *   put:
  *     summary: Update a store
- *     tags: [Stores]
+ *     tags: [stores]
  *     parameters:
  *       - in: path
  *         name: id
@@ -86,10 +86,10 @@ router.put('/:id', storeController.updateStore);
 
 /**
  * @swagger
- * /Stores/{id}:
+ * /stores/{id}:
  *   delete:
  *     summary: Delete a store
- *     tags: [Stores]
+ *     tags: [stores]
  *     parameters:
  *       - in: path
  *         name: id

@@ -4,10 +4,10 @@ const itemController = require('../controllers/itemController');
 
 /**
  * @swagger
- * /Items:
+ * /items:
  *   get:
  *     summary: Get all items
- *     tags: [Items]
+ *     tags: [items]
  *     responses:
  *       200:
  *         description: List of all items
@@ -16,16 +16,16 @@ const itemController = require('../controllers/itemController');
  *                  schema:
  *                      type: array
  *                      items:
- *                          $ref: '#/components/schemas/Item'
+ *                          $ref: '#/components/schemas/item'
  */
 router.get('/', itemController.getAllItems);
 
 /**
  * @swagger
- * /Items/{id}:
+ * /items/{id}:
  *   get:
  *     summary: Get a single item by ID
- *     tags: [Items]
+ *     tags: [items]
  *     parameters:
  *       - in: path
  *         name: id
@@ -38,7 +38,7 @@ router.get('/', itemController.getAllItems);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Item'
+ *               $ref: '#/components/schemas/item'
  *       404:
  *         description: Item not found
  */
@@ -46,16 +46,16 @@ router.get('/:id', itemController.getSingleItem);
 
 /**
  * @swagger
- * /Items:
+ * /items:
  *   post:
  *     summary: Create a new item
- *     tags: [Items]
+ *     tags: [items]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Item'
+ *             $ref: '#/components/schemas/item'
  *     responses:
  *       201:
  *         description: Item created
@@ -64,10 +64,10 @@ router.post('/', itemController.createItem);
 
 /**
  * @swagger
- * /Items/{id}:
+ * /items/{id}:
  *   put:
  *     summary: Update an item
- *     tags: [Items]
+ *     tags: [items]
  *     parameters:
  *       - in: path
  *         name: id
@@ -84,10 +84,10 @@ router.put('/:id', itemController.updateItem);
 
 /**
  * @swagger
- * /Items/{id}:
+ * /items/{id}:
  *   delete:
  *     summary: Delete an item
- *     tags: [Items]
+ *     tags: [items]
  *     parameters:
  *       - in: path
  *         name: id

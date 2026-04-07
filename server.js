@@ -51,6 +51,10 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+const fs = require('fs');
+fs.writeFileSync('./docs/swagger.json', JSON.stringify(swaggerDocs, null, 2));
+console.log('swagger.json generated!');
+
 // Basic route
 app.get('/', (req, res) => {
   res.send('Lettuce Shop API is running');

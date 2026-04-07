@@ -7,7 +7,7 @@ const listController = require('../controllers/listController');
  * /lists:
  *   get:
  *     summary: Get all lists
- *     tags: [Lists]
+ *     tags: [lists]
  *     responses:
  *       200:
  *         description: List of all lists
@@ -16,7 +16,7 @@ const listController = require('../controllers/listController');
  *                  schema:
  *                      type: array
  *                      items:
- *                      $ref: '#/components/schemas/List'
+ *                          $ref: '#/components/schemas/list'
  */
 router.get('/', listController.getAllLists);
 
@@ -25,7 +25,7 @@ router.get('/', listController.getAllLists);
  * /lists/{id}:
  *   get:
  *     summary: Get a single list by ID
- *     tags: [Lists]
+ *     tags: [lists]
  *     parameters:
  *       - in: path
  *         name: id
@@ -40,7 +40,7 @@ router.get('/', listController.getAllLists);
  *                  schema:
  *                      type: array
  *                      items:
- *                      $ref: '#/components/schemas/List'
+ *                          $ref: '#/components/schemas/list'
  *       404:
  *         description: List not found
  */
@@ -51,7 +51,7 @@ router.get('/:id', listController.getSingleList);
  * /lists/user/{userId}:
  *   get:
  *     summary: Get all lists for a specific user
- *     tags: [Lists]
+ *     tags: [lists]
  *     parameters:
  *       - in: path
  *         name: userId
@@ -66,26 +66,26 @@ router.get('/:id', listController.getSingleList);
  *                  schema:
  *                      type: array
  *                      items:
- *                      $ref: '#/components/schemas/List'
+ *                          $ref: '#/components/schemas/list'
  *       404:
  *         description: User not found
  */
 router.get('/user/:userId', listController.getListsByUser);
+
 // POST: Create a new list
-router.post('/', listController.createList);
 
 /**
  * @swagger
- * /Lists:
+ * /lists:
  *   post:
  *     summary: Create a new list
- *     tags: [Lists]
+ *     tags: [lists]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/List'
+ *             $ref: '#/components/schemas/list'
  *     responses:
  *       201:
  *         description: List created
@@ -94,10 +94,10 @@ router.post('/', listController.createList);
 
 /**
  * @swagger
- * /Lists/{id}:
+ * /lists/{id}:
  *   put:
  *     summary: Update a list
- *     tags: [Lists]
+ *     tags: [lists]
  *     parameters:
  *       - in: path
  *         name: id
@@ -114,10 +114,10 @@ router.put('/:id', listController.updateList);
 
 /**
  * @swagger
- * /Lists/{id}:
+ * /lists/{id}:
  *   delete:
  *     summary: Delete a list
- *     tags: [Lists]
+ *     tags: [lists]
  *     parameters:
  *       - in: path
  *         name: id
