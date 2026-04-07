@@ -10,8 +10,8 @@ const schemas = {
             store: { type: 'string' },
             list: { type: 'string' },
             notes: { type: 'string' },
-            createdAt: { type: 'string' },
-            updatedAt: { type: 'string' }
+            createdAt: { type: 'string', format: 'date-time' },
+            updatedAt: { type: 'string', format: 'date-time' }
         }
     },
 
@@ -26,8 +26,8 @@ const schemas = {
                 items: { type: 'string' },
             },
             notes: { type: 'string' },
-            createdAt: { type: 'string' },
-            updatedAt: { type: 'string' }
+            createdAt: { type: 'string', format: 'date-time' },
+            updatedAt: { type: 'string', format: 'date-time' }
         }
     },
 
@@ -39,8 +39,8 @@ const schemas = {
             address: { type: 'string' },
             category: { type: 'string' },
             notes: { type: 'string' },
-            createdAt: { type: 'string' },
-            updatedAt: { type: 'string' }
+            createdAt: { type: 'string', format: 'date-time' },
+            updatedAt: { type: 'string', format: 'date-time' }
         }
     },
 
@@ -52,8 +52,8 @@ const schemas = {
             username: { type: 'string' },
             displayName: { type: 'string' },
             email: { type: 'string' },
-            createdAt: { type: 'string' },
-            updatedAt: { type: 'string' },
+            createdAt: { type: 'string', format: 'date-time' },
+            updatedAt: { type: 'string', format: 'date-time' },
         }
     }
 };
