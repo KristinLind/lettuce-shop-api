@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const listController = require('../controllers/listController');
 const { listValidationRules, validate } = require('../middleware/validate');
-const { ensureAuthenticated } = require('../middleware/auth');
+const { ensureAuthenticated } = require('../middleware/validate');
 
 /**
  * @swagger
- * /Lists:
+ * /lists:
  *   get:
  *     summary: Get all lists
- *     tags: [Lists]
+ *     tags: [lists]
  *     responses:
  *       200:
  *         description: List of all lists
@@ -18,16 +18,16 @@ const { ensureAuthenticated } = require('../middleware/auth');
  *                  schema:
  *                      type: array
  *                      items:
- *                          $ref: '#/components/schemas/List'
+ *                          $ref: '#/components/schemas/list'
  */
 router.get('/', listController.getAllLists);
 
 /**
  * @swagger
- * /Lists/{id}:
+ * /lists/{id}:
  *   get:
  *     summary: Get a single list by ID
- *     tags: [Lists]
+ *     tags: [lists]
  *     parameters:
  *       - in: path
  *         name: id
@@ -42,7 +42,7 @@ router.get('/', listController.getAllLists);
  *                  schema:
  *                      type: array
  *                      items:
- *                          $ref: '#/components/schemas/List'
+ *                          $ref: '#/components/schemas/list'
  *       404:
  *         description: List not found
  */
@@ -50,10 +50,10 @@ router.get('/:id', listController.getSingleList);
 
 /**
  * @swagger
- * /Lists/user/{userId}:
+ * /lists/user/{userId}:
  *   get:
  *     summary: Get all lists for a specific user
- *     tags: [Lists]
+ *     tags: [lists]
  *     parameters:
  *       - in: path
  *         name: userId
@@ -68,7 +68,7 @@ router.get('/:id', listController.getSingleList);
  *                  schema:
  *                      type: array
  *                      items:
- *                          $ref: '#/components/schemas/List'
+ *                          $ref: '#/components/schemas/list'
  *       404:
  *         description: User not found
  */
@@ -76,16 +76,16 @@ router.get('/user/:userId', listController.getListsByUser);
 
 /**
  * @swagger
- * /Lists:
+ * /lists:
  *   post:
  *     summary: Create a new list
- *     tags: [Lists]
+ *     tags: [lists]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/List'
+ *             $ref: '#/components/schemas/list'
  *     responses:
  *       201:
  *         description: List created
@@ -94,10 +94,10 @@ router.post('/', ensureAuthenticated, listValidationRules(), validate, listContr
 
 /**
  * @swagger
- * /Lists/{id}:
+ * /lists/{id}:
  *   put:
  *     summary: Update a list
- *     tags: [Lists]
+ *     tags: [lists]
  *     parameters:
  *       - in: path
  *         name: id
@@ -108,16 +108,16 @@ router.post('/', ensureAuthenticated, listValidationRules(), validate, listContr
  *       200:
  *         description: List updated
  *       404:
- *         description: list not found
+ *         description: List not found
  */
 router.put('/:id', ensureAuthenticated, listValidationRules(), validate, listController.updateList);
 
 /**
  * @swagger
- * /Lists/{id}:
+ * /lists/{id}:
  *   delete:
  *     summary: Delete a list
- *     tags: [Lists]
+ *     tags: [lists]
  *     parameters:
  *       - in: path
  *         name: id

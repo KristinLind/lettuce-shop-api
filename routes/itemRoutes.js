@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const itemController = require("../controllers/itemController");
 const { itemValidationRules, validate } = require("../middleware/validate");
-const { ensureAuthenticated } = require("../middleware/auth");
+const { ensureAuthenticated  = require("../middleware/auth");
 
 /**
  * @swagger
- * /Items:
+ * /items:
  *   get:
  *     summary: Get all items
- *     tags: [Items]
+ *     tags: [items]
  *     responses:
  *       200:
  *         description: List of all items
@@ -18,13 +18,13 @@ const { ensureAuthenticated } = require("../middleware/auth");
  *                  schema:
  *                      type: array
  *                      items:
- *                          $ref: '#/components/schemas/Item'
+ *                          $ref: '#/components/schemas/item'
  */
 router.get("/", itemController.getAllItems);
 
 /**
  * @swagger
- * /Items/{id}:
+ * /items/{id}:
  *   get:
  *     summary: Get a single item by ID
  *     tags: [Items]
@@ -40,7 +40,7 @@ router.get("/", itemController.getAllItems);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Item'
+ *               $ref: '#/components/schemas/item'
  *       404:
  *         description: Item not found
  */
@@ -48,7 +48,7 @@ router.get("/:id", itemController.getSingleItem);
 
 /**
  * @swagger
- * /Items:
+ * /items:
  *   post:
  *     summary: Create a new item
  *     tags: [Items]
@@ -57,7 +57,7 @@ router.get("/:id", itemController.getSingleItem);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Item'
+ *             $ref: '#/components/schemas/item'
  *     responses:
  *       201:
  *         description: Item created
@@ -72,10 +72,10 @@ router.post(
 
 /**
  * @swagger
- * /Items/{id}:
+ * /items/{id}:
  *   put:
  *     summary: Update an item
- *     tags: [Items]
+ *     tags: [items]
  *     parameters:
  *       - in: path
  *         name: id
@@ -98,10 +98,10 @@ router.put(
 
 /**
  * @swagger
- * /Items/{id}:
+ * /items/{id}:
  *   delete:
  *     summary: Delete an item
- *     tags: [Items]
+ *     tags: [items]
  *     parameters:
  *       - in: path
  *         name: id
