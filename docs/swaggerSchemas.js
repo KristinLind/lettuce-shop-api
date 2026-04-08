@@ -1,5 +1,5 @@
 const schemas = {
-    Item: {
+    item: {
         type:'object',
         properties: {
             _id: { type: 'string' },
@@ -14,8 +14,7 @@ const schemas = {
             updatedAt: { type: 'string' }
         }
     },
-
-    List: {
+    list: {
         type: 'object',
         properties: {
             _id: { type: 'string' },
@@ -30,8 +29,7 @@ const schemas = {
             updatedAt: { type: 'string' }
         }
     },
-
-    Store: {
+    store: {
         type: 'object',
         properties:{
             _id: { type: 'string' },
@@ -43,8 +41,7 @@ const schemas = {
             updatedAt: { type: 'string' }
         }
     },
-
-    User: {
+    user: {
         type: 'object',
         properties: {
             _id: { type: 'string' },
@@ -57,5 +54,4 @@ const schemas = {
         }
     }
 };
-
 module.exports = schemas;
