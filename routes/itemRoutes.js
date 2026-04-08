@@ -27,7 +27,7 @@ router.get("/", itemController.getAllItems);
  * /items/{id}:
  *   get:
  *     summary: Get a single item by ID
- *     tags: [Items]
+ *     tags: [items]
  *     parameters:
  *       - in: path
  *         name: id
@@ -51,7 +51,7 @@ router.get("/:id", itemController.getSingleItem);
  * /items:
  *   post:
  *     summary: Create a new item
- *     tags: [Items]
+ *     tags: [items]
  *     requestBody:
  *       required: true
  *       content:
