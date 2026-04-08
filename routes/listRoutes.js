@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const listController = require('../controllers/listController');
+const { listValidationRules, validate } = require('../middleware/validate');
+const { ensureAuthenticated } = require('../middleware/validate');
 
 /**
  * @swagger
@@ -72,8 +74,6 @@ router.get('/:id', listController.getSingleList);
  */
 router.get('/user/:userId', listController.getListsByUser);
 
-// POST: Create a new list
-
 /**
  * @swagger
  * /lists:
@@ -90,7 +90,7 @@ router.get('/user/:userId', listController.getListsByUser);
  *       201:
  *         description: List created
  */
-router.post('/', listController.createList);
+router.post('/', ensureAuthenticated, listValidationRules(), validate, listController.createList);
 
 /**
  * @swagger
@@ -108,9 +108,9 @@ router.post('/', listController.createList);
  *       200:
  *         description: List updated
  *       404:
- *         description: list not found
+ *         description: List not found
  */
-router.put('/:id', listController.updateList);
+router.put('/:id', ensureAuthenticated, listValidationRules(), validate, listController.updateList);
 
 /**
  * @swagger
@@ -130,6 +130,8 @@ router.put('/:id', listController.updateList);
  *       404:
  *         description: List not found
  */ 
-router.delete('/:id', listController.deleteList);
+
+
+router.delete('/:id', ensureAuthenticated, listController.deleteList);
 
 module.exports = router;

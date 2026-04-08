@@ -4,8 +4,13 @@
   "description": "CSE341-team project",
   "main": "server.js",
   "scripts": {
-    "test": "jest --testPathPatterns=tests --forceExit",
+    "test": "set NODE_ENV=test&& jest --runInBand --forceExit",
     "start": "node server.js"
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -24,7 +29,7 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
-    "jest": "^30.3.0",
+    "express-validator": "^7.3.2",
     "mongoose": "^9.3.3",
     "passport": "^0.7.0",
     "passport-github2": "^0.1.12",
@@ -32,5 +37,10 @@
     "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "jest": "^30.3.0",
+    "supertest": "^7.2.2"
   }
 }

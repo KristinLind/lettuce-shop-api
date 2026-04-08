@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const { userValidationRules, validate } = require('../middleware/validate');
+const { ensureAuthenticated } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -62,7 +64,7 @@ router.get('/:id', userController.getSingleUser);
  *       201:
  *         description: User created
  */
-router.post('/', userController.createUser); // ✅ matches our resolved controller
+router.post('/', ensureAuthenticated, userValidationRules(), validate, userController.createUser); // ✅ matches our resolved controller
 
 /**
  * @swagger
@@ -82,7 +84,7 @@ router.post('/', userController.createUser); // ✅ matches our resolved control
  *       404:
  *         description: User not found
  */
-router.put('/:id', userController.updateUser); // ✅ fixed from router.post
+router.put('/:id', ensureAuthenticated, userValidationRules(), validate, userController.updateUser); // ✅ fixed from router.post
 
 /**
  * @swagger
@@ -102,6 +104,6 @@ router.put('/:id', userController.updateUser); // ✅ fixed from router.post
  *       404:
  *         description: User not found
  */
-router.delete('/:id', userController.deleteUser);
+router.delete('/:id', ensureAuthenticated, userController.deleteUser);
 
 module.exports = router;

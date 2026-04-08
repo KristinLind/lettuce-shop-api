@@ -1,6 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const itemController = require('../controllers/itemController');
+const itemController = require("../controllers/itemController");
+const { itemValidationRules, validate } = require("../middleware/validate");
+const { ensureAuthenticated } = require("../middleware/auth");
 
 /**
  * @swagger
@@ -18,7 +20,7 @@ const itemController = require('../controllers/itemController');
  *                      items:
  *                          $ref: '#/components/schemas/item'
  */
-router.get('/', itemController.getAllItems);
+router.get("/", itemController.getAllItems);
 
 /**
  * @swagger
@@ -42,7 +44,7 @@ router.get('/', itemController.getAllItems);
  *       404:
  *         description: Item not found
  */
-router.get('/:id', itemController.getSingleItem);
+router.get("/:id", itemController.getSingleItem);
 
 /**
  * @swagger
@@ -60,7 +62,13 @@ router.get('/:id', itemController.getSingleItem);
  *       201:
  *         description: Item created
  */
-router.post('/', itemController.createItem);
+router.post(
+  "/",
+  ensureAuthenticated,
+  itemValidationRules(),
+  validate,
+  itemController.createItem,
+);
 
 /**
  * @swagger
@@ -80,7 +88,13 @@ router.post('/', itemController.createItem);
  *       404:
  *         description: Item not found
  */
-router.put('/:id', itemController.updateItem);
+router.put(
+  "/:id",
+  ensureAuthenticated,
+  itemValidationRules(),
+  validate,
+  itemController.updateItem,
+);
 
 /**
  * @swagger
@@ -100,6 +114,6 @@ router.put('/:id', itemController.updateItem);
  *       404:
  *         description: Item not found
  */
-router.delete('/:id', itemController.deleteItem);
+router.delete("/:id", ensureAuthenticated, itemController.deleteItem);
 
 module.exports = router;

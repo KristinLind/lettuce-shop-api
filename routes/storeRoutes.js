@@ -1,6 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const storeController = require('../controllers/storeController');
+const storeController = require("../controllers/storeController");
+const { storeValidationRules, validate } = require("../middleware/validate");
+const { ensureAuthenticated } = require("../middleware/auth");
 
 /**
  * @swagger
@@ -18,7 +20,7 @@ const storeController = require('../controllers/storeController');
  *                      items:
  *                          $ref: '#/components/schemas/store'
  */
-router.get('/', storeController.getAllStores);
+router.get("/", storeController.getAllStores);
 
 /**
  * @swagger
@@ -44,7 +46,7 @@ router.get('/', storeController.getAllStores);
  *       404:
  *         description: Store not found
  */
-router.get('/:id', storeController.getSingleStore);
+router.get("/:id", storeController.getSingleStore);
 
 /**
  * @swagger
@@ -62,7 +64,13 @@ router.get('/:id', storeController.getSingleStore);
  *       201:
  *         description: Store created
  */
-router.post('/', storeController.createStore); // ✅ matches our resolved controller
+router.post(
+  "/",
+  ensureAuthenticated,
+  storeValidationRules(),
+  validate,
+  storeController.createStore,
+); // ✅ matches our resolved controller
 
 /**
  * @swagger
@@ -82,7 +90,13 @@ router.post('/', storeController.createStore); // ✅ matches our resolved contr
  *       404:
  *         description: Store not found
  */
-router.put('/:id', storeController.updateStore);
+router.put(
+  "/:id",
+  ensureAuthenticated,
+  storeValidationRules(),
+  validate,
+  storeController.updateStore,
+);
 
 /**
  * @swagger
@@ -102,6 +116,6 @@ router.put('/:id', storeController.updateStore);
  *       404:
  *         description: Store not found
  */
-router.delete('/:id', storeController.deleteStore);
+router.delete("/:id", ensureAuthenticated, storeController.deleteStore);
 
 module.exports = router;
